@@ -8,6 +8,7 @@ import * as faceapi from 'face-api.js';
 })
 export class AppComponent {
   phi: number = 0;
+  calculating:boolean = false;
 
   uploadImage() {
     let fileElement = document.createElement('input');
@@ -41,6 +42,7 @@ export class AppComponent {
   detectPoints(canvas: any) {
     let image = canvas.toDataURL();
 
+    this.calculating = true;
     Promise.all([
       faceapi.nets.tinyFaceDetector.loadFromUri('assets/models'),
       faceapi.nets.faceLandmark68Net.loadFromUri('assets/models'),
@@ -55,8 +57,9 @@ export class AppComponent {
 
       if (!results || !results.landmarks) {
         alert("Try with different image");
+        this.calculating = false;
       }else{
-        this.drawPoints(image, results.landmarks._positions);
+        // this.drawPoints(image, results.landmarks._positions);
         this.calculate(results.landmarks._positions);
       }
     });
@@ -98,6 +101,7 @@ export class AppComponent {
     if (nose / chin === 1.618) {
       console.log('You are beautiful');
     }
+    this.calculating = false;
   }
 
   getDistance(point1: any, point2: any) {
