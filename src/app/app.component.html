@@ -1,7 +1,7 @@
 <div class="container">
   <div class="beautiful-message">
     <div *ngIf="!calculating">
-      {{ phi > 0 ? 'phi value ' + phi : 'You are beautiful' }}
+      {{ phi > 0 ? 'phi value ' + phi.toFixed(4) : 'You are beautiful' }}
     </div>
     <div *ngIf="calculating">
       {{ 'Calculating' }}
